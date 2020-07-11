@@ -25,7 +25,7 @@ class Bot:
         return updates[len(updates) - 1]['update_id']
 
     def send_message(self, chat_id, text):
-        params = {'chat_id': chat_id, 'text': text}
+        params = {'chat_id': chat_id, 'text': text, 'parse_mode': 'markdown'}
         requests.post(self._url + 'sendMessage', params)
 
     def get_chat_id(self, update):
@@ -43,6 +43,5 @@ class Bot:
         name = args.pop(0)
         if name in self._commands:
             self._commands[name](chat_id, args)
-            self.send_message(chat_id, f'handle {name}')
         else:
-            self.send_message(chat_id, 'no such command')
+            self.send_message(chat_id, f'Неизвестная команда: {name}')
