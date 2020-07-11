@@ -12,6 +12,8 @@ class Bot:
             updates = self.get_updates(offset)
             if len(updates) > 0:
                 for update in updates:
+                    if self.is_command(update): print('Is command')
+                    else: print('Not command')
                     self.send_message(self.get_chat_id(update), 'pong')
                 offset = self.get_last_update_id(updates) + 1
             time.sleep(1)
@@ -29,6 +31,10 @@ class Bot:
 
     def get_chat_id(self, update):
         return update['message']['chat']['id']
+
+    def is_command(self, update):
+        if 'entities' not in update['message']: return False
+        return update['message']['entities'][0]['type'] == 'bot_command'
 
     def add_command(self, name, handler):
         self._commands[name] = handler
