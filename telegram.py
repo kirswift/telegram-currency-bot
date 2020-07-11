@@ -13,8 +13,7 @@ class Bot:
             if len(updates) > 0:
                 for update in updates:
                     if self.is_command(update): 
-                        self.handle_command(update['message']['text'])
-                    self.send_message(self.get_chat_id(update), 'pong')
+                        self.handle_command(self.get_chat_id(update), update['message']['text'])
                 offset = self.get_last_update_id(updates) + 1
             time.sleep(1)
 
@@ -39,11 +38,11 @@ class Bot:
     def add_command(self, name, handler):
         self._commands[name] = handler
 
-    def handle_command(self, text):
+    def handle_command(self, chat_id, text):
         args = text.split(' ')
         name = args.pop(0)
         if name in self._commands:
-            self._commands[name](args)
-            print(f'handle {name}')
+            self._commands[name](chat_id, args)
+            self.send_message(chat_id, f'handle {name}')
         else:
-            print('no such command')
+            self.send_message(chat_id, 'no such command')
