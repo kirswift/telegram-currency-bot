@@ -4,6 +4,7 @@ import time
 class Bot:
     def __init__(self, token):
         self._url = f'https://api.telegram.org/bot{token}/'
+        self._commands = {}
 
     def start(self):
         offset = 0
@@ -28,3 +29,6 @@ class Bot:
 
     def get_chat_id(self, update):
         return update['message']['chat']['id']
+
+    def add_command(self, name, handler):
+        self._commands[name] = handler
