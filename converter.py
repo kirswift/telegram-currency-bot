@@ -3,7 +3,8 @@ import requests
 class Converter:
     def __init__(self):
         self._url = 'https://api.exchangeratesapi.io/latest'
-        self._codes = ['RUB', 'USD', 'EUR']
+        self._codes = ['RUB', 'USD', 'EUR', 'CAD', 'HKD', 'ISK',
+        'DKK', 'HUF', 'CZK', 'AUD', 'SEK', 'IDR', 'JPY', 'NOK', 'GBP']
 
     def get_exchange_rate(self, base, currency):
         if base.upper() not in self._codes or currency.upper() not in self._codes:
@@ -18,3 +19,6 @@ class Converter:
         except ValueError:
             raise
         return amount * rate
+
+    def get_allowed_codes(self):
+        return self._codes
