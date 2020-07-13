@@ -9,6 +9,15 @@ config.read('config.ini')
 converter = Converter()
 bot = Bot(config['telegram']['token'])
 
+def start_handler(chat_id, args):
+    bot.send_message(chat_id, textwrap.dedent(f'''  
+    Добро пожаловать!
+    Данный бот позволяет узнавать информацию о текущем *курсе валют*.
+    Подробнее: */help*
+    '''))
+
+bot.add_command('/start', start_handler)
+
 def help_handler(chat_id, args):
     bot.send_message(chat_id, textwrap.dedent(f'''  
     */rate [код]* - получить текущий курс валюты по отношению к рублю
