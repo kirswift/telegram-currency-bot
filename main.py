@@ -9,8 +9,19 @@ def help_handler(chat_id, args):
 
 bot.add_command('/help', help_handler)
 
-print(converter.get_exchange_rate('EUR', 'RUB'))
+def convert_handler(chat_id, args):
+    if len(args) < 3:
+        bot.send_message(chat_id, 'Неверное количество аргументов')
+        return
+    try:
+        amount = float(args[0])
+        convert_from = args[1]
+        convert_to = args[2]
+        result = converter.convert(amount, convert_from, convert_to)
+        bot.send_message(chat_id, f'*{amount}* {convert_from.upper()} = *{result}* {convert_to.upper()}')
+    except ValueError as err:
+        bot.send_message(chat_id, f'Ошибка: *{err}*')
 
-print(converter.convert(10, 'EUR', 'RUB'))
+bot.add_command('/convert', convert_handler)
 
-# bot.start()
+bot.start()

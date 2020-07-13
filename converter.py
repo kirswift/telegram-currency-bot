@@ -10,7 +10,7 @@ class Converter:
             raise ValueError('Неподдерживаемый код валюты')
 
         params = {'base': base.upper(), 'symbols': currency.upper()}
-        return requests.get(self._url, params).json()['rates'][currency]
+        return requests.get(self._url, params).json()['rates'][currency.upper()]
 
     def convert(self, amount, convert_from, convert_to):
         try:
