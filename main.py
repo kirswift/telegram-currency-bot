@@ -1,11 +1,15 @@
 from telegram import Bot
 from converter import Converter
+import textwrap
 
 converter = Converter()
 bot = Bot('1233613509:AAGYxH3vYQ7WYFz1NlzVFX3DI9GFCwVk0fs')
 
 def help_handler(chat_id, args):
-    bot.send_message(chat_id, '*Вы ввели команду /help*')
+    bot.send_message(chat_id, textwrap.dedent('''  
+    */rate [код]* - получить текущий курс валюты по отношению к рублю
+    */convert [сумма] [код #1] [код #2]* - конвертировать валюту #1 в валюту #2
+    '''))
 
 bot.add_command('/help', help_handler)
 
