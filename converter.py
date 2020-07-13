@@ -13,5 +13,8 @@ class Converter:
         return requests.get(self._url, params).json()['rates'][currency]
 
     def convert(self, amount, convert_from, convert_to):
-        rate = self.get_exchange_rate(convert_from, convert_to)
+        try:
+            rate = self.get_exchange_rate(convert_from, convert_to)
+        except ValueError:
+            raise
         return amount * rate
