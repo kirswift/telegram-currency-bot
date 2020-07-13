@@ -11,4 +11,6 @@ bot.add_command('/help', help_handler)
 
 print(converter.get_exchange_rate('EUR', 'RUB'))
 
-bot.start()
+print(converter.convert(10, 'EUR', 'RUB'))
+
+# bot.start()
