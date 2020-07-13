@@ -1,9 +1,13 @@
 from telegram import Bot
 from converter import Converter
 import textwrap
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 converter = Converter()
-bot = Bot('1233613509:AAGYxH3vYQ7WYFz1NlzVFX3DI9GFCwVk0fs')
+bot = Bot(config['telegram']['token'])
 
 def help_handler(chat_id, args):
     bot.send_message(chat_id, textwrap.dedent(f'''  
