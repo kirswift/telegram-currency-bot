@@ -24,4 +24,17 @@ def convert_handler(chat_id, args):
 
 bot.add_command('/convert', convert_handler)
 
+def rate_handler(chat_id, args):
+    try:
+        if len(args) < 1:
+            bot.send_message(chat_id, 'Неверное количество аргументов')
+            return
+        base = args[0]
+        rate = converter.get_exchange_rate(base, 'RUB')
+        bot.send_message(chat_id, f'Курс {base.upper()}: *{rate}*')
+    except ValueError as err:
+        bot.send_message(chat_id, f'Ошибка: *{err}*')
+
+bot.add_command('/rate', rate_handler)
+
 bot.start()
